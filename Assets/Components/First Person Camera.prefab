@@ -50,8 +50,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 5135427701858045399, guid: 3060ea5c6312505448303d79613ab6bb, type: 3}
-  m_Follow: {fileID: 5135427701858045399, guid: 3060ea5c6312505448303d79613ab6bb, type: 3}
+  m_LookAt: {fileID: 0}
+  m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 70
     OrthographicSize: 5
@@ -124,8 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 1.6, z: -0.1}
+  m_BindingMode: 1
+  m_FollowOffset: {x: 0, y: 1.6, z: 0.1}
   m_XDamping: 0
   m_YDamping: 0
   m_ZDamping: 0
@@ -155,7 +155,7 @@ MonoBehaviour:
     m_DecelTime: 0
     m_InputAxisName: Mouse Y
     m_InputAxisValue: 0
-    m_InvertInput: 0
+    m_InvertInput: 1
     m_MinValue: -90
     m_MaxValue: 90
     m_Wrap: 0
@@ -179,7 +179,7 @@ MonoBehaviour:
     m_DecelTime: 0
     m_InputAxisName: Mouse X
     m_InputAxisValue: 0
-    m_InvertInput: 1
+    m_InvertInput: 0
     m_MinValue: -180
     m_MaxValue: 180
     m_Wrap: 1

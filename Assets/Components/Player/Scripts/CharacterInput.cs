@@ -12,6 +12,7 @@ public class CharacterInput : MonoBehaviour {
 	public string horizontalMoveInput = "Horizontal";
 	public string verticalMoveInput = "Vertical";
 	public string jumpInput = "Jump";
+	public string interactInput = "Fire1";
 	public string flashlightInput = "Toggle Flashlight";
 
 	[Header("Runtime Parameters")]
@@ -29,16 +30,19 @@ public class CharacterInput : MonoBehaviour {
 		transform.Rotate(Vector3.up * CinemachineCore.GetInputAxis("Mouse X"));
 		character.Move(moveDir.normalized);
 
+		// Jump
 		if (Input.GetButtonDown(jumpInput)) {
 			character.Jump();
 		}
 
+		// Toggle Flashlight
 		if (Input.GetButtonDown(flashlightInput)) {
 			flashlight.SetActive(!flashlight.activeInHierarchy);
 		}
 
-		if (Input.GetKeyDown(KeyCode.E)) {
-			
+		// Interact
+		if (Input.GetButtonDown(interactInput)) {
+			character.Interact();
 		}
 	}
 }

@@ -13,7 +13,6 @@ public class Character : MonoBehaviour {
 	public float moveSpeed = 5.0f;
 	public float jumpHeight = 2.0f;
 	public Vector3 velocity = new Vector3(0, 0, 0);
-	public float gravityWeight = 1.0f;
 
 	[Header("Flags")]
 	public bool isGrounded = false;
@@ -24,25 +23,28 @@ public class Character : MonoBehaviour {
 	}
 
 	private void Update() {
-		velocity += Physics.gravity * Time.deltaTime;
-
-		isGrounded = Physics.CheckSphere(transform.position, groundDistance, groundMask, QueryTriggerInteraction.Ignore);
+		isGrounded = Physics.CheckSphere(transform.position, controller.skinWidth * 1.10f, groundMask, QueryTriggerInteraction.Ignore);
 		if (isGrounded) {
 			if (velocity.y < 0) {
 				velocity.y = Physics.gravity.y * Time.deltaTime;
 			}
 		}
 
+		velocity += Physics.gravity * Time.deltaTime;
 		controller.Move(velocity * Time.deltaTime);
 	}
 
 	public void Move(Vector3 direction) {
-		velocity = direction * moveSpeed;
+		controller.Move(direction * moveSpeed * Time.deltaTime);
 	}
 
 	public void Jump() {
 		if (isGrounded) {
 			velocity.y += Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
 		}
+	}
+
+	public void Interact() {
+		// TODO
 	}
 }
