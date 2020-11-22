@@ -5,8 +5,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterInput : MonoBehaviour {
+	public float moveForce = 250;
+	public float pickUpRange = 5;
+	public Transform holdParent;
+	private GameObject heldobj;
 	public Character character;
 	public GameObject flashlight;
+
 
 	[Header("Input Settings")]
 	public string horizontalMoveInput = "Horizontal";
@@ -30,6 +35,40 @@ public class CharacterInput : MonoBehaviour {
 		transform.Rotate(Vector3.up * CinemachineCore.GetInputAxis("Mouse X"));
 		character.Move(moveDir.normalized);
 
+		if (Input.GetKeyDown(KeyCode.E))
+		{
+			if (heldobj != null)
+			{
+
+				RaycastHit hit;
+				if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange))
+				{
+
+					PickupObject(hit.transform.gameObject);
+
+				}
+			}
+			else
+			{
+				DropObject();
+			}
+
+			if(heldobj == null)
+			{
+				MoveObject();
+			}
+			
+		}
+
+		void MoveObject()
+		{
+
+			if(Vector3.Distance(heldobj.transform.position, holdParent.position)> 0.1f)
+			{
+				Vector3 moveDirection =(holdParent.position - heldobj.transform.position);
+				heldobj.GetComponent<Rigidbody>().AddForce(moveDirection * moveForce);
+			}
+		}
 		// Jump
 		if (Input.GetButtonDown(jumpInput)) {
 			character.Jump();
@@ -45,5 +84,30 @@ public class CharacterInput : MonoBehaviour {
 			character.Interact();
 			
 		}
+	}
+
+	void PickupObject(GameObject pickObj)
+	{
+		if (pickObj.GetComponent<Rigidbody>())
+		{
+			Rigidbody objRig = pickObj.GetComponent<Rigidbody>();
+			objRig.useGravity = false;
+			objRig.drag = 10;
+
+			objRig.transform.parent = holdParent;
+			heldobj = pickObj;
+		}
+
+	}
+
+	void DropObject()
+	{
+		Rigidbody heldRig = heldobj.GetComponent<Rigidbody>();
+		heldRig.useGravity = true;
+		heldRig.drag = 1;
+
+		heldobj.transform.parent = null;
+		heldobj = null;
+
 	}
 }
