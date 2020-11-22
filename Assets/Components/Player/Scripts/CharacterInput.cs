@@ -43,6 +43,7 @@ public class CharacterInput : MonoBehaviour {
 		// Interact
 		if (Input.GetButtonDown(interactInput)) {
 			character.Interact();
+			
 		}
 	}
 }
